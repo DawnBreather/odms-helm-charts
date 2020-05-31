@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+{{ toYaml .Values.frontendDeployment.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.frontendDeployment.labels | indent 4 }}
+  name: {{ .Values.frontendDeployment.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+{{ toYaml .Values.frontendDeployment.spec.selector | indent 4 }}
+  template:
+    metadata:
+{{ toYaml .Values.frontendDeployment.spec.template.metadata | indent 6 }}
+    spec:
+      containers:
+{{ toYaml .Values.frontendDeployment.containers | indent 8 }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 8 }}
+      volumes:
+{{ toYaml .Values.frontendDeployment.spec.template.volumes | indent 8 }}

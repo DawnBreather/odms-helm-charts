@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+{{ toYaml .Values.pgadminService.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.pgadminService.labels | indent 4 }}
+  name: {{ .Values.pgadminService.name }}
+  namespace: {{ .Release.Namespace }}
+  ownerReferences:
+  - apiVersion: apps/v1beta2
+    controller: true
+    kind: deployment
+    name: pgadmin
+    uid: 05be4139-2594-4d46-9029-f1f4284cd2a3
+spec:
+  ports:
+{{ toYaml .Values.pgadminService.ports | indent 4 }}
+  selector:
+{{ toYaml .Values.pgadminService.selector | indent 4 }}
+  sessionAffinity: {{ .Values.pgadminService.sessionAffinity }}
+  sessionAffinityConfig:
+{{ toYaml .Values.pgadminService.sessionAffinityConfig | indent 4 }}
+  type: {{ .Values.pgadminService.type }}

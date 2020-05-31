@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+{{ toYaml .Values.liquibaseOdmsOltpJob.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.liquibaseOdmsOltpJob.labels | indent 4 }}
+  name: {{ .Values.liquibaseOdmsOltpJob.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+{{ toYaml .Values.liquibaseOdmsOltpJob.spec.selector | indent 4 }}
+  template:
+    spec:
+      containers:
+{{ toYaml .Values.liquibaseOdmsOltpJob.containers | indent 8 }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 8 }}

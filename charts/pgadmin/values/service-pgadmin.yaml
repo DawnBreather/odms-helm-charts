@@ -1,0 +1,14 @@
+pgadminService:
+  annotations: {}
+  labels: {}
+  name: pgadmin
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    workload.user.cattle.io/workloadselector: deployment-staging-pgadmin
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  type: ClusterIP

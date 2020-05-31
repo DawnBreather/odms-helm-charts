@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+{{ toYaml .Values.pgadminDeployment.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.pgadminDeployment.labels | indent 4 }}
+  name: {{ .Values.pgadminDeployment.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+{{ toYaml .Values.pgadminDeployment.spec.selector | indent 4 }}
+  template:
+    metadata:
+{{ toYaml .Values.pgadminDeployment.spec.template.metadata | indent 6 }}
+    spec:
+      containers:
+{{ toYaml .Values.pgadminDeployment.containers | indent 8 }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 8 }}
+      volumes:
+{{ toYaml .Values.pgadminDeployment.spec.template.volumes | indent 8 }}

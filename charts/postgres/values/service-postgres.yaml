@@ -1,0 +1,15 @@
+postgresService:
+  annotations: {}
+  labels: {}
+  name: postgres
+  ports:
+  - name: tcp-5432
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    stack: odms
+    tier: database
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  type: ClusterIP

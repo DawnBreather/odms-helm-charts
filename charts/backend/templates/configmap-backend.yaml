@@ -1,0 +1,36 @@
+apiVersion: v1
+data:
+  DB_DEMOGRAPHICS_DATABASE: {{ .Values.backendConfigMap.data.DB_DEMOGRAPHICS_DATABASE }}
+  DB_DEMOGRAPHICS_HOST: {{ .Values.backendConfigMap.data.DB_DEMOGRAPHICS_HOST }}
+  DB_DEMOGRAPHICS_PORT: {{ .Values.backendConfigMap.data.DB_DEMOGRAPHICS_PORT | quote}}
+  DB_DEMOGRAPHICS_SSL: {{ .Values.backendConfigMap.data.DB_DEMOGRAPHICS_SSL | quote}}
+  DB_DEMOGRAPHICS_SSLMODE: {{ .Values.backendConfigMap.data.DB_DEMOGRAPHICS_SSLMODE }}
+  DB_ODMS_DATABASE: {{ .Values.backendConfigMap.data.DB_ODMS_DATABASE }}
+  DB_ODMS_HOST: {{ .Values.backendConfigMap.data.DB_ODMS_HOST }}
+  DB_ODMS_PORT: {{ .Values.backendConfigMap.data.DB_ODMS_PORT | quote}}
+  DB_ODMS_SSLMODE: {{ .Values.backendConfigMap.data.DB_ODMS_SSLMODE }}
+  DB_REGISTRIES_DATABASE: {{ .Values.backendConfigMap.data.DB_REGISTRIES_DATABASE }}
+  DB_REGISTRIES_HOST: {{ .Values.backendConfigMap.data.DB_REGISTRIES_HOST }}
+  DB_REGISTRIES_PORT: {{ .Values.backendConfigMap.data.DB_REGISTRIES_PORT | quote}}
+  DB_REGISTRIES_SSL: {{ .Values.backendConfigMap.data.DB_REGISTRIES_SSL | quote}}
+  DB_REGISTRIES_SSLMODE: {{ .Values.backendConfigMap.data.DB_REGISTRIES_SSLMODE }}
+  DB_SECURITY_DATABASE: {{ .Values.backendConfigMap.data.DB_SECURITY_DATABASE }}
+  DB_SECURITY_HOST: {{ .Values.backendConfigMap.data.DB_SECURITY_HOST }}
+  DB_SECURITY_PORT: {{ .Values.backendConfigMap.data.DB_SECURITY_PORT | quote}}
+  DB_SECURITY_SSL: {{ .Values.backendConfigMap.data.DB_SECURITY_SSL | quote}}
+  DB_SECURITY_SSLMODE: {{ .Values.backendConfigMap.data.DB_SECURITY_SSLMODE }}
+  SECURITY_KEYSTORE_SIGNINGKEYSTYPE: {{ .Values.backendConfigMap.data.SECURITY_KEYSTORE_SIGNINGKEYSTYPE }}
+  SECURITY_PROVIDER_LDAP_HOST: {{ .Values.backendConfigMap.data.SECURITY_PROVIDER_LDAP_HOST }}
+  SECURITY_PROVIDER_LDAP_PORT: {{ .Values.backendConfigMap.data.SECURITY_PROVIDER_LDAP_PORT | quote}}
+  SECURITY_PROVIDER_TYPE: {{ .Values.backendConfigMap.data.SECURITY_PROVIDER_TYPE }}
+  SERVER_SSL_ENABLED: {{ .Values.backendConfigMap.data.SERVER_SSL_ENABLED | quote}}
+  SERVICE_PORT: {{ .Values.backendConfigMap.data.SERVICE_PORT | quote}}
+  SPRING_PROFILES_ACTIVE: {{ .Values.backendConfigMap.data.SPRING_PROFILES_ACTIVE }}
+kind: ConfigMap
+metadata:
+  annotations:
+{{ toYaml .Values.backendConfigMap.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.backendConfigMap.labels | indent 4 }}
+  name: {{ .Values.backendConfigMap.name }}
+  namespace: {{ .Release.Namespace }}

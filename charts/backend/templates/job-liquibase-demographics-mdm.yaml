@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+{{ toYaml .Values.liquibaseDemographicsMdmJob.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.liquibaseDemographicsMdmJob.labels | indent 4 }}
+  name: {{ .Values.liquibaseDemographicsMdmJob.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+{{ toYaml .Values.liquibaseDemographicsMdmJob.spec.selector | indent 4 }}
+  template:
+    spec:
+      containers:
+{{ toYaml .Values.liquibaseDemographicsMdmJob.containers | indent 8 }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 8 }}

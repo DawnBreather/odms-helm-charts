@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+{{ toYaml .Values.ldapService.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.ldapService.labels | indent 4 }}
+  name: {{ .Values.ldapService.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+{{ toYaml .Values.ldapService.ports | indent 4 }}
+  selector:
+{{ toYaml .Values.ldapService.selector | indent 4 }}
+  sessionAffinity: {{ .Values.ldapService.sessionAffinity }}
+  sessionAffinityConfig:
+{{ toYaml .Values.ldapService.sessionAffinityConfig | indent 4 }}
+  type: {{ .Values.ldapService.type }}

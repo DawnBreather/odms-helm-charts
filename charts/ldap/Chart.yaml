@@ -1,0 +1,13 @@
+apiVersion: v2
+name: ldap
+version: 1.0.1
+description: A Helm chart for ODMS LDAP
+type: application
+home: https://placeholder.com
+sources:
+  - https://github.com/placeholder
+maintainers:
+  - name: EPAM DevOps team
+    email: SpecialRCOM-CHTRCoreTeam@epam.com
+icon: file://icon.png
+appVersion: "1.0"

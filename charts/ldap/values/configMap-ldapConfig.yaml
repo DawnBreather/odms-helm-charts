@@ -1,0 +1,7 @@
+ldapConfigConfigMap:
+  annotations: {}
+  data:
+    LDAP_DOMAIN: odms.dev
+    LDAP_ORGANISATION: ODMS
+  labels: {}
+  name: ldap-config

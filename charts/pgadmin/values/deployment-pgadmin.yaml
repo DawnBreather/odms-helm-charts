@@ -1,0 +1,25 @@
+pgadminDeployment:
+  annotations: {}
+  containers:
+  - envFrom:
+    - configMapRef:
+        name: pgadmin
+    image: dpage/pgadmin4:4.20
+    imagePullPolicy: IfNotPresent
+    name: pgadmin
+    ports:
+    - containerPort: 80
+      name: http
+      protocol: TCP
+    resources: {}
+  labels: {}
+  name: pgadmin
+  spec:
+    selector:
+      matchLabels:
+        workload.user.cattle.io/workloadselector: deployment-staging-pgadmin
+    template:
+      metadata:
+        labels:
+          workload.user.cattle.io/workloadselector: deployment-staging-pgadmin
+      volumes: null

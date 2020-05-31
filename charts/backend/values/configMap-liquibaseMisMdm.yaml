@@ -1,0 +1,13 @@
+liquibaseMisMdmConfigMap:
+  annotations: {}
+  data:
+    CONTEXT_DIR: /workspace/mis_mdm
+    LIQUIBASE_CHANGELOG: mis_mdm.yaml
+    LIQUIBASE_DATABASE: odms
+    LIQUIBASE_DEFAULT_SCHEMA_NAME: public
+    LIQUIBASE_HOST: dbms
+    LIQUIBASE_LOGLEVEL: finest
+    LIQUIBASE_PASSWORD: postgres
+    LIQUIBASE_USERNAME: postgres
+  labels: {}
+  name: liquibase-mis-mdm

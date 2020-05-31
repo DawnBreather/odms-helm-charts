@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+{{ toYaml .Values.odmsIngress.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.odmsIngress.labels | indent 4 }}
+  name: {{ .Values.odmsIngress.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  rules:
+{{ toYaml .Values.odmsIngress.rules | indent 4 }}
+  tls:
+{{ toYaml .Values.odmsIngress.tls | indent 4 }}

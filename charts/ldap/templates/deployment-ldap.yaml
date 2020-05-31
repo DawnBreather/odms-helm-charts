@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+{{ toYaml .Values.ldapDeployment.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.ldapDeployment.labels | indent 4 }}
+  name: {{ .Values.ldapDeployment.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+{{ toYaml .Values.ldapDeployment.spec.selector | indent 4 }}
+  template:
+    metadata:
+{{ toYaml .Values.ldapDeployment.spec.template.metadata | indent 6 }}
+    spec:
+      containers:
+{{ toYaml .Values.ldapDeployment.containers | indent 8 }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 8 }}
+      volumes:
+{{ toYaml .Values.ldapDeployment.spec.template.volumes | indent 8 }}

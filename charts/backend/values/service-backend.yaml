@@ -1,0 +1,15 @@
+backendService:
+  annotations: {}
+  labels: {}
+  name: backend
+  ports:
+  - name: tcp-8082
+    port: 8082
+    protocol: TCP
+    targetPort: 8082
+  selector:
+    stack: odms
+    tier: backend
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  type: ClusterIP

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+{{ toYaml .Values.backendDeployment.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.backendDeployment.labels | indent 4 }}
+  name: {{ .Values.backendDeployment.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+{{ toYaml .Values.backendDeployment.spec.selector | indent 4 }}
+  template:
+    metadata:
+{{ toYaml .Values.backendDeployment.spec.template.metadata | indent 6 }}
+    spec:
+      containers:
+{{ toYaml .Values.backendDeployment.containers | indent 8 }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 8 }}
+      volumes:
+{{ toYaml .Values.backendDeployment.spec.template.volumes | indent 8 }}

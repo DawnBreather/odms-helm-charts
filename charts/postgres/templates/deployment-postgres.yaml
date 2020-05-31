@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+{{ toYaml .Values.postgresDeployment.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.postgresDeployment.labels | indent 4 }}
+  name: {{ .Values.postgresDeployment.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+{{ toYaml .Values.postgresDeployment.spec.selector | indent 4 }}
+  template:
+    metadata:
+{{ toYaml .Values.postgresDeployment.spec.template.metadata | indent 6 }}
+    spec:
+      containers:
+{{ toYaml .Values.postgresDeployment.containers | indent 8 }}
+      imagePullSecrets:
+{{ toYaml .Values.imagePullSecrets | indent 8 }}
+      volumes:
+{{ toYaml .Values.postgresDeployment.spec.template.volumes | indent 8 }}

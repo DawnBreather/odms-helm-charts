@@ -1,0 +1,13 @@
+liquibaseOdmsOltpConfigMap:
+  annotations: {}
+  data:
+    CONTEXT_DIR: /workspace/odms_oltp
+    LIQUIBASE_CHANGELOG: odms_oltp.yaml
+    LIQUIBASE_DATABASE: odms
+    LIQUIBASE_DEFAULT_SCHEMA_NAME: public
+    LIQUIBASE_HOST: postgres
+    LIQUIBASE_LOGLEVEL: finest
+    LIQUIBASE_PASSWORD: postgres
+    LIQUIBASE_USERNAME: postgres
+  labels: {}
+  name: liquibase-odms-oltp

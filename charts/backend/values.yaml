@@ -1,0 +1,229 @@
+backendConfigMap:
+  annotations: {}
+  data:
+    DB_DEMOGRAPHICS_DATABASE: odms
+    DB_DEMOGRAPHICS_HOST: postgres.staging
+    DB_DEMOGRAPHICS_PORT: "5432"
+    DB_DEMOGRAPHICS_SSL: "false"
+    DB_DEMOGRAPHICS_SSLMODE: disable
+    DB_ODMS_DATABASE: odms
+    DB_ODMS_HOST: postgres.staging
+    DB_ODMS_PORT: "false"
+    DB_ODMS_SSLMODE: disable
+    DB_REGISTRIES_DATABASE: odms
+    DB_REGISTRIES_HOST: postgres.staging
+    DB_REGISTRIES_PORT: "5432"
+    DB_REGISTRIES_SSL: "false"
+    DB_REGISTRIES_SSLMODE: disable
+    DB_SECURITY_DATABASE: odms
+    DB_SECURITY_HOST: postgres.staging
+    DB_SECURITY_PORT: "5432"
+    DB_SECURITY_SSL: "false"
+    DB_SECURITY_SSLMODE: disable
+    SECURITY_KEYSTORE_SIGNINGKEYSTYPE: inmemory
+    SECURITY_PROVIDER_LDAP_HOST: ldap.staging
+    SECURITY_PROVIDER_LDAP_PORT: "389"
+    SECURITY_PROVIDER_TYPE: ldap
+    SERVER_SSL_ENABLED: "false"
+    SERVICE_PORT: "8082"
+    SPRING_PROFILES_ACTIVE: dev
+  labels: {}
+
+liquibaseDemographicsMdmConfigMap:
+  annotations: {}
+  data:
+    CONTEXT_DIR: /workspace/demographics_mdm
+    LIQUIBASE_CHANGELOG: demographics_mdm.yaml
+    LIQUIBASE_DATABASE: odms
+    LIQUIBASE_DEFAULT_SCHEMA_NAME: public
+    LIQUIBASE_HOST: dbms
+    LIQUIBASE_LOGLEVEL: finest
+    LIQUIBASE_PASSWORD: postgres
+    LIQUIBASE_USERNAME: postgres
+  labels: {}
+  name: liquibase-demographics-mdm
+
+liquibaseEpmrConfigMap:
+  annotations: {}
+  data:
+    CONTEXT_DIR: /workspace/epmr
+    LIQUIBASE_CHANGELOG: epmr.yaml
+    LIQUIBASE_DATABASE: odms
+    LIQUIBASE_DEFAULT_SCHEMA_NAME: public
+    LIQUIBASE_HOST: dbms
+    LIQUIBASE_LOGLEVEL: finest
+    LIQUIBASE_PASSWORD: postgres
+    LIQUIBASE_USERNAME: postgres
+  labels: {}
+  name: liquibase-epmr
+
+liquibaseMisMdmConfigMap:
+  annotations: {}
+  data:
+    CONTEXT_DIR: /workspace/mis_mdm
+    LIQUIBASE_CHANGELOG: mis_mdm.yaml
+    LIQUIBASE_DATABASE: odms
+    LIQUIBASE_DEFAULT_SCHEMA_NAME: public
+    LIQUIBASE_HOST: dbms
+    LIQUIBASE_LOGLEVEL: finest
+    LIQUIBASE_PASSWORD: postgres
+    LIQUIBASE_USERNAME: postgres
+  labels: {}
+  name: liquibase-mis-mdm
+
+liquibaseOdmsOltpConfigMap:
+  annotations: {}
+  data:
+    CONTEXT_DIR: /workspace/odms_oltp
+    LIQUIBASE_CHANGELOG: odms_oltp.yaml
+    LIQUIBASE_DATABASE: odms
+    LIQUIBASE_DEFAULT_SCHEMA_NAME: public
+    LIQUIBASE_HOST: postgres
+    LIQUIBASE_LOGLEVEL: finest
+    LIQUIBASE_PASSWORD: postgres
+    LIQUIBASE_USERNAME: postgres
+  labels: {}
+  name: liquibase-odms-oltp
+
+backendDeployment:
+  annotations: {}
+  containers:
+  - envFrom:
+    - secretRef:
+        name: backend
+    - configMapRef:
+        name: backend
+    image: artifactory.epam.com:6135/odms-app:80
+    imagePullPolicy: Always
+    name: backend
+    ports:
+    - containerPort: 8082
+      name: http
+      protocol: TCP
+    resources: {}
+  labels: {}
+  name: backend
+  spec:
+    selector:
+      matchLabels:
+        stack: odms
+        tier: backend
+    template:
+      metadata:
+        labels:
+          stack: odms
+          tier: backend
+      volumes: null
+
+backendSecret:
+  annotations: {}
+  data:
+    DB_DEMOGRAPHICS_USER: postgres
+    DB_ODMS_PASSWORD: postgres
+    DB_ODMS_USER: postgres
+    DB_REGISTRIES_PASSWORD: postgres
+    DB_REGISTRIES_USER: postgres
+    DB_SECURITY_PASSWORD: postgres
+    DB_SECURITY_USER: postgres
+  labels: {}
+  name: backend
+
+backendService:
+  annotations: {}
+  labels: {}
+  name: backend
+  ports:
+  - name: tcp-8082
+    port: 8082
+    protocol: TCP
+    targetPort: 8082
+  selector:
+    stack: odms
+    tier: backend
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  type: ClusterIP
+
+liquibaseDemographicsMdmJob:
+  annotations:
+    "helm.sh/hook": pre-upgrade,post-install
+    "helm.sh/hook-delete-policy": before-hook-creation
+  containers:
+  - envFrom:
+    - configMapRef:
+        name: liquibase-demographics-mdm
+        optional: false
+    image: dawnbreather/tmp:liquibase-odms-demographics-mdm
+    imagePullPolicy: IfNotPresent
+    name: liquibase-demographics-mdm
+    resources: {}
+  labels: {}
+  spec:
+    selector:
+      matchLabels:
+        stack: odms
+        tier: liquibase
+        instance: demographics-mdm
+
+liquibaseEpmrJob:
+  annotations:
+    "helm.sh/hook": pre-upgrade,post-install
+    "helm.sh/hook-delete-policy": before-hook-creation
+  containers:
+  - envFrom:
+    - configMapRef:
+        name: liquibase-epmr
+        optional: false
+    image: dawnbreather/tmp:liquibase-odms-demographics-mdm
+    imagePullPolicy: IfNotPresent
+    name: liquibase-epmr
+    resources: {}
+  labels: {}
+  spec:
+    selector:
+      matchLabels:
+        stack: odms
+        tier: liquibase
+        instance: epmr
+
+liquibaseMisMdmJob:
+  annotations:
+    "helm.sh/hook": pre-upgrade,post-install
+    "helm.sh/hook-delete-policy": before-hook-creation
+  containers:
+  - envFrom:
+    - configMapRef:
+        name: liquibase-mis-mdm
+        optional: false
+    image: dawnbreather/tmp:liquibase-odms-demographics-mdm
+    imagePullPolicy: IfNotPresent
+    name: liquibase-mis-mdm
+    resources: {}
+  labels: {}
+  spec:
+    selector:
+      matchLabels:
+        stack: odms
+        tier: liquibase
+        instance: mis-mdm
+
+liquibaseOdmsOltpJob:
+  annotations:
+    "helm.sh/hook": pre-upgrade,post-install
+    "helm.sh/hook-delete-policy": before-hook-creation
+  containers:
+  - envFrom:
+    - configMapRef:
+        name: liquibase-odms-oltp
+        optional: false
+    image: dawnbreather/tmp:liquibase-odms-demographics-mdm
+    imagePullPolicy: IfNotPresent
+    name: liquibase-odms-oltp
+    resources: {}
+  labels: {}
+  spec:
+    selector:
+      matchLabels:
+        stack: odms
+        tier: liquibase
+        instance: odms-oltp

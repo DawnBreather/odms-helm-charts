@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  LDAP_DOMAIN: {{ .Values.ldapConfigConfigMap.data.LDAP_DOMAIN }}
+  LDAP_ORGANISATION: {{ .Values.ldapConfigConfigMap.data.LDAP_ORGANISATION }}
+kind: ConfigMap
+metadata:
+  annotations:
+{{ toYaml .Values.ldapConfigConfigMap.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.ldapConfigConfigMap.labels | indent 4 }}
+  name: {{ .Values.ldapConfigConfigMap.name }}
+  namespace: {{ .Release.Namespace }}

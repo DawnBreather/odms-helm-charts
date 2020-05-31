@@ -1,0 +1,54 @@
+postgresDeployment:
+  annotations: {}
+  containers:
+  - envFrom:
+    - secretRef:
+        name: postgres
+    image: postgres:12.2-alpine
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 3
+      initialDelaySeconds: 30
+      periodSeconds: 2
+      successThreshold: 1
+      tcpSocket:
+        port: 5432
+      timeoutSeconds: 2
+    name: postgres
+    ports:
+    - containerPort: 5432
+      name: psql
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 3
+      initialDelaySeconds: 30
+      periodSeconds: 2
+      successThreshold: 2
+      tcpSocket:
+        port: 5432
+      timeoutSeconds: 2
+    resources: {}
+    volumeMounts:
+    - mountPath: /docker-entrypoint-initdb.d
+      name: init-scripts
+  labels: {}
+  name: postgres
+  spec:
+    selector:
+      matchLabels:
+        stack: odms
+        tier: database
+    template:
+      metadata:
+        labels:
+          stack: odms
+          tier: database
+      volumes:
+      - name: init-scripts
+        secret:
+          defaultMode: 420
+          items:
+          - key: init
+            path: init.sql
+          optional: false
+          secretName: postgres-init-scripts

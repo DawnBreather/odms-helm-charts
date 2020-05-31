@@ -1,0 +1,15 @@
+ldapService:
+  annotations: {}
+  labels: {}
+  name: ldap
+  ports:
+  - name: tcp-389
+    port: 389
+    protocol: TCP
+    targetPort: 389
+  selector:
+    stack: odms
+    tier: ldap
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  type: ClusterIP

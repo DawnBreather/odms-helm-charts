@@ -1,0 +1,54 @@
+pgadminConfigMap:
+  annotations: {}
+  data:
+    PGADMIN_DEFAULT_EMAIL: pgadmin@user
+    PGADMIN_DEFAULT_PASSWORD: pgadmin@pass
+  labels: {}
+  name: pgadmin
+
+pgadminService:
+  annotations: {}
+  labels: {}
+  name: pgadmin
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    stack: odms
+    tier: tools
+    instance: pgadmin
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  type: ClusterIP
+
+pgadminDeployment:
+  annotations: {}
+  containers:
+  - envFrom:
+    - configMapRef:
+        name: pgadmin
+    image: dpage/pgadmin4:4.20
+    imagePullPolicy: IfNotPresent
+    name: pgadmin
+    ports:
+    - containerPort: 80
+      name: http
+      protocol: TCP
+    resources: {}
+  labels: {}
+  name: pgadmin
+  spec:
+    selector:
+      matchLabels:
+        stack: odms
+        tier: tools
+        instance: pgadmin
+    template:
+      metadata:
+        labels:
+          stack: odms
+          tier: tools
+          instance: pgadmin
+      volumes: null

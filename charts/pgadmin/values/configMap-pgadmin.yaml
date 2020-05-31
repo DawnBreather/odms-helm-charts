@@ -1,0 +1,7 @@
+pgadminConfigMap:
+  annotations: {}
+  data:
+    PGADMIN_DEFAULT_EMAIL: pgadmin@user
+    PGADMIN_DEFAULT_PASSWORD: pgadmin@pass
+  labels: {}
+  name: pgadmin

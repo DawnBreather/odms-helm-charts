@@ -1,0 +1,60 @@
+frontendDeployment:
+  annotations: {}
+  containers:
+  - image: artifactory.epam.com:6135/odms-app-frontend:feature-cicd-5
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /
+        port: 80
+        scheme: HTTP
+      initialDelaySeconds: 10
+      periodSeconds: 2
+      successThreshold: 1
+      timeoutSeconds: 2
+    name: frontend
+    ports:
+    - containerPort: 80
+      name: http
+      protocol: TCP
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /
+        port: 80
+        scheme: HTTP
+      initialDelaySeconds: 10
+      periodSeconds: 2
+      successThreshold: 2
+      timeoutSeconds: 2
+    resources: {}
+  labels: {}
+  name: frontend
+  spec:
+    selector:
+      matchLabels:
+        stack: odms
+        tier: frontend
+    template:
+      metadata:
+        labels:
+          stack: odms
+          tier: frontend
+      volumes: null
+
+frontendService:
+  annotations: {}
+  labels: {}
+  name: frontend
+  ports:
+  - name: tcp-80
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    stack: odms
+    tier: frontend
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  type: ClusterIP

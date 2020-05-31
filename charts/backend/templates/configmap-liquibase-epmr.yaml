@@ -1,0 +1,18 @@
+apiVersion: v1
+data:
+  CONTEXT_DIR: {{ .Values.liquibaseEpmrConfigMap.data.CONTEXT_DIR }}
+  LIQUIBASE_CHANGELOG: {{ .Values.liquibaseEpmrConfigMap.data.LIQUIBASE_CHANGELOG }}
+  LIQUIBASE_DATABASE: {{ .Values.liquibaseEpmrConfigMap.data.LIQUIBASE_DATABASE }}
+  LIQUIBASE_DEFAULT_SCHEMA_NAME: {{ .Values.liquibaseEpmrConfigMap.data.LIQUIBASE_DEFAULT_SCHEMA_NAME }}
+  LIQUIBASE_HOST: {{ .Values.liquibaseEpmrConfigMap.data.LIQUIBASE_HOST }}
+  LIQUIBASE_LOGLEVEL: {{ .Values.liquibaseEpmrConfigMap.data.LIQUIBASE_LOGLEVEL }}
+  LIQUIBASE_PASSWORD: {{ .Values.liquibaseEpmrConfigMap.data.LIQUIBASE_PASSWORD }}
+  LIQUIBASE_USERNAME: {{ .Values.liquibaseEpmrConfigMap.data.LIQUIBASE_USERNAME }}
+kind: ConfigMap
+metadata:
+  annotations:
+{{ toYaml .Values.liquibaseEpmrConfigMap.annotations | indent 4 }}
+  labels:
+{{ toYaml .Values.liquibaseEpmrConfigMap.labels | indent 4 }}
+  name: {{ .Values.liquibaseEpmrConfigMap.name }}
+  namespace: {{ .Release.Namespace }}

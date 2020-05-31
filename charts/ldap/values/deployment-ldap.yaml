@@ -1,0 +1,43 @@
+ldapDeployment:
+  annotations: {}
+  containers:
+  - args:
+    - -c
+    - cp -r /tmp/bootstrap-ldif/* /container/service/slapd/assets/config/bootstrap/ldif/ && /container/tool/run
+    command:
+    - /bin/bash
+    envFrom:
+    - configMapRef:
+        name: ldap-config
+    image: osixia/openldap
+    imagePullPolicy: Always
+    name: ldap
+    ports:
+    - containerPort: 389
+      name: tcp-389
+      protocol: TCP
+    resources: {}
+    volumeMounts:
+    - mountPath: /tmp/bootstrap-ldif
+      name: ldif-schema
+  labels: {}
+  name: ldap
+  spec:
+    selector:
+      matchLabels:
+        stack: odms
+        tier: ldap
+    template:
+      metadata:
+        labels:
+          stack: odms
+          tier: ldap
+      volumes:
+      - configMap:
+          defaultMode: 511
+          items:
+          - key: ldif
+            path: 50-bootstrap.ldif
+          name: ldap-schema
+          optional: false
+        name: ldif-schema

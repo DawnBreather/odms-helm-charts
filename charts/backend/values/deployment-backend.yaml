@@ -1,0 +1,29 @@
+backendDeployment:
+  annotations: {}
+  containers:
+  - envFrom:
+    - secretRef:
+        name: backend
+    - configMapRef:
+        name: backend
+    image: artifactory.epam.com:6135/odms-app:80
+    imagePullPolicy: Always
+    name: backend
+    ports:
+    - containerPort: 8082
+      name: http
+      protocol: TCP
+    resources: {}
+  labels: {}
+  name: backend
+  spec:
+    selector:
+      matchLabels:
+        stack: odms
+        tier: backend
+    template:
+      metadata:
+        labels:
+          stack: odms
+          tier: backend
+      volumes: null
