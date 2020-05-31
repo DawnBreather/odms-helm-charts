@@ -1,4 +1,4 @@
-apiVersion: v2
+apiVersion: v1
 name: pgadmin
 version: 1.0.1
 description: A Helm chart for ODMS PgAdmin
