@@ -1,3 +1,6 @@
+imagePullSecrets:
+- name: epam-artifactory
+
 ldapConfigConfigMap:
   annotations: {}
   data:
