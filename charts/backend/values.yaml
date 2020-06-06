@@ -149,6 +149,7 @@ backendService:
   type: ClusterIP
 
 liquibaseDemographicsMdmJob:
+  name: liquibase-demographics-mdm
   annotations:
     "helm.sh/hook": pre-upgrade,post-install
     "helm.sh/hook-delete-policy": before-hook-creation
@@ -170,6 +171,7 @@ liquibaseDemographicsMdmJob:
         instance: demographics-mdm
 
 liquibaseEpmrJob:
+  name: liquibase-epmr
   annotations:
     "helm.sh/hook": pre-upgrade,post-install
     "helm.sh/hook-delete-policy": before-hook-creation
@@ -191,6 +193,7 @@ liquibaseEpmrJob:
         instance: epmr
 
 liquibaseMisMdmJob:
+  name: liquibase-mis-mdm
   annotations:
     "helm.sh/hook": pre-upgrade,post-install
     "helm.sh/hook-delete-policy": before-hook-creation
@@ -212,6 +215,7 @@ liquibaseMisMdmJob:
         instance: mis-mdm
 
 liquibaseOdmsOltpJob:
+  name: liquibase-odms-oltp
   annotations:
     "helm.sh/hook": pre-upgrade,post-install
     "helm.sh/hook-delete-policy": before-hook-creation
