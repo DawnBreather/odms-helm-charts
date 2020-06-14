@@ -14,5 +14,6 @@ spec:
     spec:
       containers:
 {{ toYaml .Values.liquibaseEpmrJob.containers | indent 8 }}
+      restartPolicy: {{ .Values.liquibaseEpmrJob.restartPolicy }}
       imagePullSecrets:
 {{ toYaml .Values.imagePullSecrets | indent 8 }}

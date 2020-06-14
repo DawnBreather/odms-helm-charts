@@ -5,26 +5,26 @@ backendConfigMap:
   annotations: {}
   data:
     DB_DEMOGRAPHICS_DATABASE: odms
-    DB_DEMOGRAPHICS_HOST: postgres.staging
+    DB_DEMOGRAPHICS_HOST: postgres.postgres
     DB_DEMOGRAPHICS_PORT: "5432"
     DB_DEMOGRAPHICS_SSL: "false"
     DB_DEMOGRAPHICS_SSLMODE: disable
     DB_ODMS_DATABASE: odms
-    DB_ODMS_HOST: postgres.staging
+    DB_ODMS_HOST: postgres.postgres
     DB_ODMS_PORT: "false"
     DB_ODMS_SSLMODE: disable
     DB_REGISTRIES_DATABASE: odms
-    DB_REGISTRIES_HOST: postgres.staging
+    DB_REGISTRIES_HOST: postgres.postgres
     DB_REGISTRIES_PORT: "5432"
     DB_REGISTRIES_SSL: "false"
     DB_REGISTRIES_SSLMODE: disable
     DB_SECURITY_DATABASE: odms
-    DB_SECURITY_HOST: postgres.staging
+    DB_SECURITY_HOST: postgres.postgres
     DB_SECURITY_PORT: "5432"
     DB_SECURITY_SSL: "false"
     DB_SECURITY_SSLMODE: disable
     SECURITY_KEYSTORE_SIGNINGKEYSTYPE: inmemory
-    SECURITY_PROVIDER_LDAP_HOST: ldap.staging
+    SECURITY_PROVIDER_LDAP_HOST: ldap.postgres
     SECURITY_PROVIDER_LDAP_PORT: "389"
     SECURITY_PROVIDER_TYPE: ldap
     SERVER_SSL_ENABLED: "false"
@@ -162,6 +162,7 @@ liquibaseDemographicsMdmJob:
     imagePullPolicy: IfNotPresent
     name: liquibase-demographics-mdm
     resources: {}
+  restartPolicy: Never
   labels: {}
   spec:
     selector:
@@ -184,6 +185,7 @@ liquibaseEpmrJob:
     imagePullPolicy: IfNotPresent
     name: liquibase-epmr
     resources: {}
+  restartPolicy: Never
   labels: {}
   spec:
     selector:
@@ -206,6 +208,7 @@ liquibaseMisMdmJob:
     imagePullPolicy: IfNotPresent
     name: liquibase-mis-mdm
     resources: {}
+  restartPolicy: Never
   labels: {}
   spec:
     selector:
@@ -228,6 +231,7 @@ liquibaseOdmsOltpJob:
     imagePullPolicy: IfNotPresent
     name: liquibase-odms-oltp
     resources: {}
+  restartPolicy: Never
   labels: {}
   spec:
     selector:
