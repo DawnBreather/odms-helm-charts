@@ -8,12 +8,7 @@ metadata:
   name: {{ .Values.liquibaseEpmrJob.name }}
   namespace: {{ .Release.Namespace }}
 spec:
-#   selector:
-# {{ toYaml .Values.liquibaseEpmrJob.spec.selector | indent 4 }}
   template:
-#     metadata:
-#       labels:
-# {{ toYaml .Values.liquibaseEpmrJob.spec.selector.matchLabels | indent 8 }}
     spec:
       containers:
 {{ toYaml .Values.liquibaseEpmrJob.containers | indent 8 }}

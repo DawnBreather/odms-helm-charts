@@ -8,12 +8,7 @@ metadata:
   name: {{ .Values.liquibaseMisMdmJob.name }}
   namespace: {{ .Release.Namespace }}
 spec:
-#   selector:
-# {{ toYaml .Values.liquibaseMisMdmJob.spec.selector | indent 4 }}
   template:
-#     metadata:
-#       labels:
-# {{ toYaml .Values.liquibaseMisMdmJob.spec.selector.matchLabels | indent 8 }}
     spec:
       containers:
 {{ toYaml .Values.liquibaseMisMdmJob.containers | indent 8 }}
