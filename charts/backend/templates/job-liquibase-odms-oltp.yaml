@@ -11,6 +11,9 @@ spec:
   selector:
 {{ toYaml .Values.liquibaseOdmsOltpJob.spec.selector | indent 4 }}
   template:
+    metadata:
+      labels:
+{{ toYaml .Values.liquibaseOdmsOltpJob.spec.selector.matchLabels | indent 8 }}
     spec:
       containers:
 {{ toYaml .Values.liquibaseOdmsOltpJob.containers | indent 8 }}
