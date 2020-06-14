@@ -4,7 +4,7 @@ metadata:
   annotations:
 {{ toYaml .Values.liquibaseDemographicsMdmJob.annotations | indent 4 }}
   labels:
-{{ toYaml .Values.liquibaseDemographicsMdmJob.labels | indent 4 }}
+{{ toYaml .Values.liquibaseDemographicsMdmJob.spec.selector.matchLabels | indent 4 }}
   name: {{ .Values.liquibaseDemographicsMdmJob.name }}
   namespace: {{ .Release.Namespace }}
 spec:
